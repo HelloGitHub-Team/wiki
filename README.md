@@ -178,11 +178,15 @@ PATH：`/api/v1/project/recommend/`
 | description |  是 | string | 对该项目的描述 |
 | url    |  是 | string  | 推荐项目的地址（最长150）|
 | category  |  否 | string  | 推荐项目的类别 |
+| langPrimary  |  是 | string  | 推荐项目的主要编程语言 |
+| watch  |  否 | int  | 推荐项目的 watch 数量 |
+| star  |  否 | int  | 推荐项目的 star 数量 |
+| fork  |  否 | int  | 推荐项目的 fork 数量 |
 | source   |  是 | string  | 用于标记提交的来源 |
 | device   |  是 | string  | 用于标记提交的设备 |
 
 
-**Tips：** 根据 url 考验是否重复，就算推荐的项目重复也返回 `200 OK`
+**Tips：** 根据 url 校验是否重复，如果重复记录第一次推荐的内容。就算推荐的项目重复也返回 `200 OK`
 
 响应：
 ```
