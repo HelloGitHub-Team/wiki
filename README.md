@@ -72,6 +72,7 @@ PATH：`/api/v1/volume/projects/`
         {
             "category": "其它", # 项目类别
             "description": "（英文）这个项目收集了很多 SEO 优化的建议\n", # 描述（Markdown语法）
+            "sort_desc": "谷歌 Material Design 设计风格控件库", # 简短描述，纯文本
             "img_url": "", # 配图地址
             "name": "search-engine-optimization", # 项目名称
             "update_time": "2018-11-28 13:56:00", # 发布时间
@@ -108,6 +109,7 @@ PATH：`/api/v1/category/projects/`
         {
             "category": "Python 项目",
             "description": "使用该库可以优雅地实现各种需求的重试。示例代码如下",
+            "sort_desc": "谷歌 Material Design 设计风格控件库", # 简短描述，纯文本
             "img_url": "",
             "name": "tenacity",
             "update_time": "2018-06-27 22:26:19",
