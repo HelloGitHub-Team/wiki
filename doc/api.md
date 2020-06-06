@@ -101,9 +101,9 @@ PATH：`GET /api/v1/volume/`
 
 比如：要请求 2019年11月16日 的数据，则 start_time 为 2019年11月16日00:00:00，end_time 为 2019年11月17日00:00:00
 
-**Tips：** 
-- 时间：默认返回昨天的数据，时间戳单位为秒。如果两者时间间隔超过 30 天，以开始时间为准，结束时间为开始时间往后推 30 天。    
-- 排序列：文档中枚举第一个字段是默认的排序字段。
+**Tips：** 默认返回昨天的数据，时间戳单位为秒。  
+**Tips：** 如果两者时间间隔超过30天，以开始时间为准，结束时间为开始时间往后推30天。    
+**Tips：** 排序列:文档中枚举第一个字段是默认的排序字段
 
 ### 3.1 获取首页汇总展示数据
 该接口用于统计首页汇总展示所有图表的概括图。
@@ -170,6 +170,20 @@ PATH：`GET /api/v1/traffic/views/`
           "category_id": 7,  #分类id
           "count": 30,
         },
+    #公告栏点击的数据(event=notice)
+    "notice_view": {
+      "all_count": 300,
+      "all_ip_count": 222,
+      "per": "hour",  #时间聚合的维度分：day和hour
+      "data": [
+        {
+          "timestamp": 1573713003, #时间戳
+          "count": 440,  #某一时间段公告栏的点击数量
+          "ip_count": 322 # IP数量
+        },
+        ...
+      ]
+    },
         ...
       ]
     }
@@ -435,6 +449,10 @@ PATH：`GET /api/v1/traffic/periodical/detail/`
   }
 }
 ```
+
+
+
+
 ## 四、日报汇总展示接口
 
 日报汇总展示接口时间范围字段：
@@ -445,9 +463,9 @@ PATH：`GET /api/v1/traffic/periodical/detail/`
 
 比如：要请求 2019年11月16日 的数据，则 start_time 为 2019年11月16日00:00:00，end_time 为 2019年11月17日00:00:00
 
-**Tips：** 
-- 时间：默认返回昨天的数据，时间戳单位为秒。如果两者时间间隔超过 30 天，以开始时间为准，结束时间为开始时间往后推 30 天。    
-- 排序列：文档中枚举第一个字段是默认的排序字段。
+**Tips：** 默认返回昨天的数据，时间戳单位为秒。
+**Tips：** 如果两者时间间隔超过30天，以开始时间为准，结束时间为开始时间往后推30天。
+**Tips：** 排序列:文档中枚举第一个字段是默认的排序字段
 
 ### 4.1 获取某搜索时间段内的语言分类
 
@@ -472,7 +490,7 @@ PATH：`GET /api/v1/daily/langs/`
 }
 ```
 
-### 4.2 获取GitHub上收集项目在某个时间段某种语言的详细数据
+### 4.2 获取 GitHub 上收集项目在某个时间段某种语言的详细数据
 
 PATH：`GET /api/v1/daily/detail/`
 
@@ -484,8 +502,8 @@ PATH：`GET /api/v1/daily/detail/`
 | end_time | 否  | int | 结束时间戳 |
 | lang    | 否  | string | 语言 |
 | page | 否 | int | 页数默认为第一页 |
-| order    | 否 | string | 排序列(stars,lang,repo_pushed_time)|
-| asc    | 否 | int | 默认为0降序，1为升序 |
+| order    | 否 | string | 排序列（stars、lang、repo_pushed_time）|
+| asc    | 否 | int | 默认为 0 降序，1 为升序 |
 
 响应：
 ```
@@ -494,7 +512,7 @@ PATH：`GET /api/v1/daily/detail/`
   "payload": {
     "start_time": 1573713003,
     "end_time": 1573723003,
-    "lang": "",  #默认为空，即不区分语言
+    "lang": "",  #默认为空,即不区分语言
     "current_page": 1,  #当前页码
     "page_count": 10,  #总页数
     "order": "stars",
