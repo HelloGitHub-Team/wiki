@@ -108,9 +108,10 @@ PATH：`GET /api/v1/volume/`
 ### 3.1 获取首页汇总展示数据
 该接口用于统计首页汇总展示所有图表的概括图。
 
-- 统计来源为饼图
-- 推荐项目点击为折线图
-- 某一期月刊为条形图
+- 统计来源为饼图（from）
+- 推荐项目点击为双折线图（click）
+- 某一期月刊为条形图（volume）
+- 公告栏点击数为双折线图（notice）
 
 PATH：`GET /api/v1/traffic/views/`
 
@@ -118,10 +119,13 @@ PATH：`GET /api/v1/traffic/views/`
 
 | 名称     | 必须  | 类型 | 描述 | 
 | ------- | ----- | ----- | ----- |
+| event    | 是    | string | 请求事件名的统计数据 |
 | start_time    | 否    | int | 开始时间戳 |
 | end_time    | 否    | int | 结束时间戳 |
 
 响应：
+**Tips：** 每次请求返回一种 event 的数据，提高数据返回效率。
+
 ```
 {
   "message": "OK",
@@ -129,8 +133,8 @@ PATH：`GET /api/v1/traffic/views/`
     "start_time": 1573713003,
     "end_time": 1573723003,
     
-    #统计来源的数据
-    "from_view": {
+    #统计来源的数据(event=from)
+    "view_data": {
       "all_count": 400,  #该时间段的总数
       "data": [
         {
@@ -144,7 +148,7 @@ PATH：`GET /api/v1/traffic/views/`
     },
 
     #推荐项目点击的数据(event=click)
-    "repo_view": {
+    "view_data": {
       "all_count": 300,
       "all_ip_count": 222,
       "per": "hour",  #时间聚合的维度分：day和hour
@@ -159,7 +163,7 @@ PATH：`GET /api/v1/traffic/views/`
     },
 
     #某一期月刊的数据（只显示最近一期和选择的时间无关,event=click）
-    "volume_view": {
+    "view_data": {
       "all_count": 100,
       "all_ip_count": 22,
       "volume_id": 44,  #月刊的id
@@ -170,8 +174,12 @@ PATH：`GET /api/v1/traffic/views/`
           "category_id": 7,  #分类id
           "count": 30,
         },
+        ...
+      ]
+    },
+    
     #公告栏点击的数据(event=notice)
-    "notice_view": {
+    "view_data": {
       "all_count": 300,
       "all_ip_count": 222,
       "per": "hour",  #时间聚合的维度分：day和hour
@@ -181,9 +189,6 @@ PATH：`GET /api/v1/traffic/views/`
           "count": 440,  #某一时间段公告栏的点击数量
           "ip_count": 322 # IP数量
         },
-        ...
-      ]
-    },
         ...
       ]
     }
