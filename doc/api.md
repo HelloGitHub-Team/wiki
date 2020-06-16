@@ -470,9 +470,8 @@ PATH：`GET /api/v1/traffic/periodical/detail/`
 
 **Tips：** 默认返回昨天的数据，时间戳单位为秒。
 **Tips：** 如果两者时间间隔超过30天，以开始时间为准，结束时间为开始时间往后推30天。
-**Tips：** 排序列:文档中枚举第一个字段是默认的排序字段
 
-### 4.1 获取某搜索时间段内的语言分类
+### 4.1 获取语言分类
 
 PATH：`GET /api/v1/daily/langs/`
 
@@ -495,7 +494,7 @@ PATH：`GET /api/v1/daily/langs/`
 }
 ```
 
-### 4.2 获取 GitHub 上收集项目在某个时间段某种语言的详细数据
+### 4.2 获取 GitHub Source 上收集项目的详细数据
 
 PATH：`GET /api/v1/daily/detail/`
 
@@ -504,11 +503,13 @@ PATH：`GET /api/v1/daily/detail/`
 | 名称     | 必须  | 类型 | 描述 | 
 | ------- | ----- | ----- | ----- |
 | start_time | 否 | int | 开始时间戳 |
-| end_time | 否  | int | 结束时间戳 |
-| lang    | 否  | string | 语言 |
-| page | 否 | int | 页数默认为第一页 |
-| order    | 否 | string | 排序列（stars、lang、repo_pushed_time）|
-| asc    | 否 | int | 默认为 0 降序，1 为升序 |
+| end_time   | 否 | int | 结束时间戳 |
+| lang       | 否 | string | 语言 |
+| page       | 否 | int | 页数默认为第一页 |
+| order      | 否 | string | 排序列（stars、forks、repo_pushed_time）|
+| asc        | 否 | int | 默认为 0 降序，1 为升序 |
+
+**Tips：** 排序列文档中枚举第一个字段是默认的排序字段
 
 响应：
 ```
@@ -517,24 +518,22 @@ PATH：`GET /api/v1/daily/detail/`
   "payload": {
     "start_time": 1573713003,
     "end_time": 1573723003,
-    "lang": "",  #默认为空,即不区分语言
+    "primary_lang": "",  #默认为空,即不区分语言
     "current_page": 1,  #当前页码
     "page_count": 10,  #总页数
     "order": "stars",
     "asc": 0,
+    "count": 10,  #本次返回项目总数
     "data": [
       {
-        "repo_id": 13,  #项目唯一id
-        "name": "HelloGitHub",  #项目名称
-        "desc": "分享有趣的GitHub项目", #项目描述
-        "star": 3000,  #项目star数
-        "lang": "Python",  #项目主语言
-        "url": "https://github.com/521xueweihan/HelloGitHub",  #项目地址
-        "repo_pushed_time": 1573713003,
-        "volume_id": 1,
-        "volume_name": "01",  #月刊期数,
-        "category_id": 7,
-        "category_name": "Go 项目"        
+        "description": "Consul is a distributed, highly available, and data center aware solution to connect and configure applications across dynamic, distributed infrastructure.", 
+        "is_chinese": false, 
+        "name": "consul", 
+        "primary_lang": "Go", 
+        "repo_pushed_time": 1592275530, # 项目最后一次活动时间
+        "stars": 19431, 
+        "forks": 332, 
+        "url": "https://github.com/hashicorp/consul"
       },
       ...
     ]
