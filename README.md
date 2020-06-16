@@ -11,7 +11,7 @@
 ## 二、规范
 1. [内容编写规范](doc/copywriting.md)
 2. [接口文档](doc/api.md)
-3. [Git 工作流]()
+3. [Git 工作流](doc/submitcode.md)
 4. [项目进度管理](doc/projects.md)
 
 ## 三、加入我们
