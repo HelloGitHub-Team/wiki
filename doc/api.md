@@ -524,7 +524,8 @@ PATH：`GET /api/v1/daily/report/`
     "page_count": 10,  #总页数
     "order": "stars",
     "asc": 0,
-    "count": 10,  #本次返回项目总数
+    "count": 10,  #项目总数
+    "page_size": 10,
     "data": [
       {
         "description": "Consul is a distributed, highly available, and data center aware solution to connect and configure applications across dynamic, distributed infrastructure.", 
