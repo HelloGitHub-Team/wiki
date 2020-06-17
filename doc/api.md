@@ -497,7 +497,7 @@ PATH：`GET /api/v1/daily/langs/`
 
 ### 4.2 获取 GitHub Source 上收集项目的详细数据
 
-PATH：`GET /api/v1/daily/detail/`
+PATH：`GET /api/v1/daily/report/`
 
 参数：
 
