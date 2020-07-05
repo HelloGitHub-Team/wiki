@@ -103,9 +103,9 @@ PATH：`GET /api/v1/volume/`
 
 比如：要请求 2019年11月16日 的数据，则 start_time 为 2019年11月16日00:00:00，end_time 为 2019年11月17日00:00:00
 
-**Tips：** 默认返回昨天的数据，时间戳单位为秒。  
-**Tips：** 如果两者时间间隔超过 31 天，以开始时间为准，结束时间为开始时间往后推 31 天。
-**Tips：** 排序列:文档中枚举第一个字段是默认的排序字段。
+**Tips：** 
+- 默认返回昨天的数据，时间戳单位为秒。  
+- 如果两者时间间隔超过 31 天，以开始时间为准，结束时间为开始时间往后推 31 天。
 
 ### 3.1 获取首页汇总展示数据
 该接口用于统计首页汇总展示所有图表的概括图。
@@ -121,7 +121,7 @@ PATH：`GET /api/v1/traffic/views/`
 
 | 名称     | 必须  | 类型 | 描述 |
 | ------- | ----- | ----- | ----- |
-| event   |   是  | string | 请求事件名 (from,click,volume,notice) |
+| event   |   是  | string | 请求事件名（可选 from，click，volume，notice）|
 | start_time | 否 | int    | 开始时间戳 |
 | end_time   | 否 | int    | 结束时间戳 |
 
@@ -241,50 +241,7 @@ PATH：`GET /api/v1/traffic/from/view/`
 }
 ```
 
-### 3.3 获取用户访问来源详细数据 (废弃不用)
-
-返回用户访问统计页面下的列表数据。
-
-PATH：`GET /api/v1/traffic/from/detail/`
-
-参数：
-
-| 名称     | 必须  | 类型 | 描述 |
-| ------- | ----- | ----- | ----- |
-| page    | 否    | int    | 页数默认为第一页 |
-| order   | 否    | string | 排序列(stars,count,ip_count) |
-| asc     | 否    | int    | 默认为0降序，1为升序 |
-| start_time | 否 | int    | 开始时间戳 |
-| end_time   | 否 | int    | 结束时间戳 |
-
-响应：
-```
-{
-  "message": "OK",
-  "payload": {
-    "start_time": 1573713003,
-    "end_time": 1573723003,
-    "per": "hour",  #时间聚合的维度分：day和hour
-    "all_count": 400,
-    "all_ip_count": 200,
-    "current_page": 1,  #当前页码
-    "page_count": 10,  #总页数
-    "order": "count",
-    "data": [
-      {
-        "id": 13,  #来源分类的id
-        "referrer": "谷歌",  #来源
-        "count": 30,  #数量
-        "percent": 0.41  #占比
-      },
-      ...
-    ]
-  }
-}
-```
-
-
-### 3.4 获取推荐项目点击统计数据
+### 3.3 获取推荐项目点击统计数据
 
 推荐项目点击统计数据用于图表展示。（折线图）
 
@@ -323,7 +280,7 @@ PATH：`GET /api/v1/traffic/click/view/`
 }
 ```
 
-### 3.5 获取推荐项目点击详细数据
+### 3.4 获取推荐项目点击详细数据
 
 返回推荐项目点击统计列表的数据
 
@@ -334,8 +291,8 @@ PATH：`GET /api/v1/traffic/click/detail/`
 | 名称     | 必须  | 类型 | 描述 | 
 | ------- | ----- | ----- | ----- |
 | page    | 否    | int    | 页数默认为第一页 |
-| order   | 否    | string | 排序列(stars,count,ip_count) |
-| asc     | 否    | int    | 默认为0降序，1为升序 |
+| order   | 否    | string | 排序列（默认 stars，可选 count，ip_count） |
+| asc     | 否    | int    | 默认为 0 降序，1 为升序 |
 | start_time | 否 | int    | 开始时间戳 |
 | end_time   | 否 | int    | 结束时间戳 |
 
@@ -373,7 +330,7 @@ PATH：`GET /api/v1/traffic/click/detail/`
 }
 ```
 
-### 3.6 获取某一期月刊的统计数据
+### 3.5 获取某一期月刊的统计数据
 
 某一期月刊的统计数据用于图表展示。（双条形图）
 
@@ -383,8 +340,8 @@ PATH：`GET /api/v1/traffic/periodical/view/`
 
 | 名称     | 必须  | 类型 | 描述 | 
 | ------- | ----- | ----- | ----- |
-| volume_id   | 否 | int | 期刊的id，默认为最新一期 |
-| category_id | 否 | int | 期刊分类的id，默认返回所有分类的数据|
+| volume_id   | 否 | int | 期刊的 id，默认为最新一期 |
+| category_id | 否 | int | 期刊分类的 id，默认返回所有分类的数据|
 
 响应：
 ```
@@ -410,7 +367,7 @@ PATH：`GET /api/v1/traffic/periodical/view/`
 }
 ```
 
-### 3.7 获取某一期月刊的详细数据
+### 3.6 获取某一期月刊的详细数据
 
 某一期月刊的统计数据用于列表的数据。
 
@@ -420,10 +377,10 @@ PATH：`GET /api/v1/traffic/periodical/detail/`
 
 | 名称     | 必须  | 类型 | 描述 | 
 | ------- | ----- | ----- | ----- |
-| volume_id | 否  | int    | 期刊的id，默认为最新一期 |
+| volume_id | 否  | int    | 期刊的 id，默认为最新一期 |
 | page     | 否   | int    | 页数默认为第一页 |
-| order    | 否   | string | 排序列(stars,count,ip_count) |
-| asc      | 否   | int    | 默认为0降序，1为升序 |
+| order    | 否   | string | 排序列（默认 stars，可选 count，ip_count） |
+| asc      | 否   | int    | 默认为 0 降序，1 为升序 |
 
 
 响应：
@@ -459,18 +416,7 @@ PATH：`GET /api/v1/traffic/periodical/detail/`
 
 
 ## 四、日报汇总展示接口
-
-日报汇总展示接口时间范围字段：
-- 开始时间：start_time
-- 结束时间：end_time
-
-时间字段的规则：开始时间和结束时间间隔最小为 1 天，最大为一个月（31天）。如果开始时间和结束时间相差为 1 天，聚合维度为**小时**；如果相差大于 1 天，聚合维度为**天**。
-
-比如：要请求 2019年11月16日 的数据，则 start_time 为 2019年11月16日00:00:00，end_time 为 2019年11月17日00:00:00
-
-**Tips：** 默认返回昨天的数据，时间戳单位为秒。
-
-**Tips：** 如果两者时间间隔超过30天，以开始时间为准，结束时间为开始时间往后推30天。
+以下 start_time 和 end_time 参考**第三部分**的相关描述。
 
 ### 4.1 获取语言分类
 
@@ -507,10 +453,8 @@ PATH：`GET /api/v1/daily/report/`
 | end_time   | 否 | int    | 结束时间戳 |
 | lang       | 否 | string | 语言 |
 | page       | 否 | int    | 页数默认为第一页 |
-| order      | 否 | string | 排序列（stars,forks,repo_pushed_time）|
+| order      | 否 | string | 排序列（默认 stars，可选 forks，repo_pushed_time） |
 | asc        | 否 | int    | 默认为 0 降序，1 为升序 |
-
-**Tips：** 排序列文档中枚举第一个字段是默认的排序字段
 
 响应：
 ```
