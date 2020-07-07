@@ -198,7 +198,47 @@ PATH：`GET /api/v1/traffic/views/`
 }
 ```
 
-### 3.2 获取推荐项目点击详细数据
+
+### 3.2 获取推荐项目点击统计图数据
+
+推荐项目点击统计数据用于图表展示。（折线图）
+
+PATH：`GET /api/v1/traffic/click/view/`
+
+参数：
+
+| 名称     | 必须  | 类型 | 描述 | 
+| ------- | ----- | ----- | ----- |
+| start_time | 否  | int  | 开始时间戳 |
+| end_time   | 否  | int  | 结束时间戳 |
+
+响应：
+```
+{
+  "message": "OK",
+  "payload": {
+    "start_time": 1573713003,
+    "end_time": 1573723003,
+    "per": "hour",  #时间聚合的维度分：day和hour
+    "all_count": 400,  #该时间段的总数
+    "all_ip_count": 322,  #IP总数
+    "data": [
+        {
+          "category_id": 1,
+          "category_name": "Python 项目",
+          "timestamp": "1573713003", #时间
+          "count": 440,  #某一时间段项目的点击数量
+          "ip_count": 322 # IP数量
+        },
+        ...
+      ]
+      }
+    ]
+  }
+}
+```
+
+### 3.3 获取推荐项目点击详细数据
 
 返回推荐项目点击统计列表的数据
 
@@ -247,8 +287,44 @@ PATH：`GET /api/v1/traffic/click/detail/`
   }
 }
 ```
+### 3.4 获取某一期月刊的统计图数据
 
-### 3.3 获取某一期月刊的详细数据
+某一期月刊的统计数据用于图表展示。（双条形图）
+
+PATH：`GET /api/v1/traffic/periodical/view/`
+
+参数：
+
+| 名称     | 必须  | 类型 | 描述 | 
+| ------- | ----- | ----- | ----- |
+| volume_id   | 否 | int | 期刊的 id，默认为最新一期 |
+| category_id | 否 | int | 期刊分类的 id，默认返回所有分类的数据|
+
+响应：
+```
+{
+  "message": "OK",
+  "payload": {
+    "all_count": 400,  #该时间段的总数
+    "all_ip_count": 322,  #IP总数
+    "data": [
+        {
+          "category_id": 1,
+          "category_name": "Python 项目",
+          "volume_id": 1,
+          "volume_name": "01",
+          "count": 440,  #某一时间段项目的点击数量
+          "ip_count": 322 # IP数量
+        },
+        ...
+      ]
+      }
+    ]
+  }
+}
+```
+
+### 3.5 获取某一期月刊的详细数据
 
 某一期月刊的统计数据用于列表的数据。
 
